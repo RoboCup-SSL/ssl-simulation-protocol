@@ -1,0 +1,149 @@
+// TODO: Simulators can simply reject some things "cannot do that".
+// TODO: How to tell that to a user if that happened?
+
+// All unset variables are unmodified when recieving the command.
+message SimulatorTeleportBall {
+    optional float x = 1;
+    optional float y = 2;
+    optional float z = 3;
+    optional float vx = 4;
+    optional float vy = 5;
+    optional float vz = 6;
+    optional bool teleport_safly = 7 [default = false]; // move robots out of the way in case of collision and set speed of robots closeby to zero
+}
+
+message SimulatorTeleportRobot {
+    optional float x = 1;
+    optional float y = 2;
+    optional float dir = 3;
+    optional float vx = 4;
+    optional float vy = 5;
+    optional float omega = 6;
+}
+
+message SimulatorRealismConfigErForce {
+    optional float stddev_ball_p = 1;
+    optional float stddev_robot_p = 2;
+    optional float stddev_robot_phi = 3;
+    optional float stddev_ball_area = 4;
+    optional bool enable_invisible_ball = 5;
+    optional float ball_visibility_threshold = 6;
+    optional float camera_overlap = 7;
+    optional float dribbler_ball_detections = 8;
+    optional float camera_position_error = 9;
+    optional float robot_command_loss = 10;
+    optional float robot_response_loss = 11;
+    optional float missing_ball_detections = 12;
+    optional int64 vision_delay = 13;
+    optional int64 vision_processing_time = 14;
+    optional bool simulate_dribbling = 15; // if false, 'glue' the ball during dribbling
+}
+
+message SimulatorRealismConfig {
+    oneof command {
+        SimulatorRealismConfigErForce erforce = 1;
+    }
+}
+
+message RobotCommand {
+    required RobotId id = 1;
+    optional MoveCommand move_command = 2;
+    // Absolute (3 dimensional) kick speed in m/s
+    optional float kick_speed = 3;
+    // Kick angle in degree (defaults to 45 degrees)
+    optional float kick_angle = 4 [default = 45];
+    // Spinner (dribbler?) speed in rounds per minute (rpm)
+    optional float spinner_speed = 5;
+}
+
+message MoveCommand {
+    oneof command {
+        WheelVelocity wheel_velocity = 1;
+        LocalVelocity local_velocity = 2;
+        GlobalVelocity global_velocity = 3;
+    }
+}
+
+message WheelVelocity {
+    required float wheel1 = 1;
+    required float wheel2 = 2;
+    required float wheel3 = 3;
+    required float wheel4 = 4;
+}
+
+message LocalVelocity {
+    // Forward velocity in m/s
+    required float forward = 1;
+    // TODO: check direction
+    // Sidewards velocity in m/s
+    required float sidewards = 2;
+    // Rotation speed in rad/s
+    required float rotation = 3;
+}
+
+message GlobalVelocity {
+    required float vel_x = 1;
+    required float vel_y = 2;
+    // TODO: check direction
+    required float rotation = 3;
+}
+
+message RobotControl {
+    repeated RobotCommand robotCommands = 3;
+}
+
+
+message RobotFeedback {
+    required RobotId id = 1;
+    required bool dribbler_ball_contact = 2;
+}
+
+message SimulatorResponse {
+    repeated RobotFeedback feedback = 1;
+    //TODO: inform team if a command was not executed properly
+}
+
+message LimitParameters
+{
+    optional float a_speedup_f_max = 1;
+    optional float a_speedup_s_max = 2;
+    optional float a_speedup_phi_max = 3;
+    optional float a_brake_f_max = 4;
+    optional float a_brake_s_max = 5;
+    optional float a_brake_phi_max = 6;
+    optional float v_max = 7;
+    optional float omega_max = 8;
+};
+
+// all angles are relative to looking forward,
+// all wheels / angles are clockwise
+message RobotWheelAngles {
+    required float front_right = 1;
+    required float back_right = 2;
+    required float back_left = 3;
+    required float front_left = 4;
+}
+
+message Specs
+{
+    required RobotId id = 1;
+    optional float radius = 2 [default = 0.09];
+    optional float height = 3 [default = 0.15];
+    optional float mass = 4;
+    optional float shot_linear_max = 7 [default = 8.0];
+    optional float shot_chip_max = 8;
+    optional float dribbler_width = 9;
+    optional LimitParameters acceleration = 10;
+    optional float shoot_radius = 11;
+    optional float dribbler_height = 12;
+    optional RobotWheelAngles wheels = 13;
+};
+
+message SimulatorCommand {
+    optional SSL_GeometryData geometry = 1;
+    optional RobotControl control = 2;
+    optional SimulatorTeleportBall teleport_ball = 3;
+    optional SimulatorTeleportRobot teleport_robot = 4;
+    repeated Specs robot_specs = 5;
+    optional float simulation_speed = 6;
+}
