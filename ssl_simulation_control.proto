@@ -1,0 +1,48 @@
+import "ssl_gc_common.proto";
+
+// Teleport the ball to a new location and optionally set it to some velocity
+message SimulatorTeleportBall {
+    // x-coordinate [m]
+    optional float x = 1;
+    // y-coordinate [m]
+    optional float y = 2;
+    // z-coordinate (height) [m]
+    optional float z = 3;
+    // Velocity in x-direction [m/s]
+    optional float vx = 4;
+    // Velocity in y-direction [m/s]
+    optional float vy = 5;
+    // Velocity in z-direction [m/s]
+    optional float vz = 6;
+    // Teleport the ball safely to the target, for example by
+    // moving robots out of the way in case of collision and set speed of robots close-by to zero
+    optional bool teleport_safely = 7 [default = false];
+}
+
+// Teleport a robot to some location and give it a velocity
+message SimulatorTeleportRobot {
+    // Robot id to teleport
+    required RobotId id = 1;
+    // x-coordinate [m]
+    optional float x = 2;
+    // y-coordinate [m]
+    optional float y = 3;
+    // Orientation [rad], measured from the x-axis counter-clockwise
+    optional float orientation = 4;
+    // Global velocity [m/s] towards x-axis
+    optional float v_x = 5;
+    // Global velocity [m/s] towards y-axis
+    optional float v_y = 6;
+    // Angular velocity [rad/s]
+    optional float v_angular = 7;
+}
+
+// Control the simulation
+message SimulatorControl {
+    // Teleport the ball
+    optional SimulatorTeleportBall teleport_ball = 1;
+    // Teleport robots
+    repeated SimulatorTeleportRobot teleport_robot = 2;
+    // Change the simulation speed
+    optional float simulation_speed = 3;
+}

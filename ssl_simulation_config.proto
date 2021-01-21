@@ -1,0 +1,97 @@
+import "ssl_gc_common.proto";
+import "ssl_geometry.proto";
+
+// Movement limits for a robot
+message RobotLimits {
+    // Max absolute speed-up acceleration [m/s^2]
+    optional float acc_speedup_absolute_max = 1;
+    // Max angular speed-up acceleration [m/s^2]
+    optional float acc_speedup_angular_max = 2;
+    // Max absolute brake acceleration [m/s^2]
+    optional float acc_brake_absolute_max = 3;
+    // Max angular brake acceleration [m/s^2]
+    optional float acc_brake_angular_max = 4;
+    // Max absolute velocity [m/s]
+    optional float vel_absolute_max = 5;
+    // Max angular velocity [rad/s]
+    optional float vel_angular_max = 6;
+}
+
+// Robot wheel angle configuration
+// all angles are relative to looking forward,
+// all wheels / angles are clockwise
+message RobotWheelAngles {
+    // Angle front right [rad]
+    required float front_right = 1;
+    // Angle back right [rad]
+    required float back_right = 2;
+    // Angle back left [rad]
+    required float back_left = 3;
+    // Angle front left [rad]
+    required float front_left = 4;
+}
+
+// Specs of a robot
+message RobotSpecs {
+    // Id of the robot
+    required RobotId id = 1;
+    // Robot radius [m]
+    optional float radius = 2 [default = 0.09];
+    // Robot height [m]
+    optional float height = 3 [default = 0.15];
+    // Robot mass [g]
+    optional float mass = 4;
+    // Max linear kick speed [m/s] (unset = unlimited)
+    optional float max_linear_kick_speed = 7;
+    // Max chip kick speed [m/s] (unset = unlimited)
+    optional float max_chip_kick_speed = 8;
+    // Width of the dribbler [m] (implicitly defines the distance from robot center to dribbler and opening angle)
+    optional float dribbler_width = 9;
+    // Movement limits
+    optional RobotLimits limits = 10;
+    // TODO
+    optional float shoot_radius = 11;
+    // TODO how should this effect the simulation?
+    optional float dribbler_height = 12;
+    // Wheel angle configuration
+    optional RobotWheelAngles wheel_angles = 13;
+}
+
+// Realism configuration for ER-Force simulator
+// TODO documentation
+message SimulatorRealismConfigErForce {
+    optional float stddev_ball_p = 1;
+    optional float stddev_robot_p = 2;
+    optional float stddev_robot_phi = 3;
+    optional float stddev_ball_area = 4;
+    optional bool enable_invisible_ball = 5;
+    optional float ball_visibility_threshold = 6;
+    optional float camera_overlap = 7;
+    optional float dribbler_ball_detections = 8;
+    optional float camera_position_error = 9;
+    optional float robot_command_loss = 10;
+    optional float robot_response_loss = 11;
+    optional float missing_ball_detections = 12;
+    optional int64 vision_delay = 13;
+    optional int64 vision_processing_time = 14;
+    // if false, 'glue' the ball during dribbling
+    optional bool simulate_dribbling = 15;
+}
+
+// Wrapper for different types of realism configurations
+message SimulatorRealismConfig {
+    oneof config {
+        // Realism configuration for ER-Force simulator
+        SimulatorRealismConfigErForce erforce = 1;
+    }
+}
+
+// Change the simulator configuration
+message SimulatorConfig {
+    // Update the geometry
+    optional SSL_GeometryData geometry = 1;
+    // Update the robot specs
+    repeated RobotSpecs robot_specs = 2;
+    // Update realism configuration
+    optional SimulatorRealismConfig realism_config = 3;
+}
