@@ -1,7 +1,4 @@
-// TODO: Simulators can simply reject some things "cannot do that".
-// TODO: How to tell that to a user if that happened?
-
-// All unset variables are unmodified when receiving the command.
+// Note: All unset variables are unmodified when receiving the command.
 
 import "ssl_gc_common.proto";
 import "ssl_geometry.proto";
@@ -214,11 +211,35 @@ message SimulatorConfig {
     optional SimulatorRealismConfig realism_config = 3;
 }
 
+// Capabilities of the simulator implementation
+enum SimulatorCapability {
+    // Unknown or not set (for compatibility)
+    SIMULATOR_CAPABILITY_UNKNOWN = 1;
+    // Supports moving robots with wheel velocity
+    SIMULATOR_CAPABILITY_MOVE_WHEEL_VELOCITY = 2;
+    // Supports moving robots with local velocity
+    SIMULATOR_CAPABILITY_MOVE_LOCAL_VELOCITY = 3;
+    // Supports moving robots with global velocity
+    SIMULATOR_CAPABILITY_MOVE_GLOBAL_VELOCITY = 4;
+}
+
+// Errors in the simulator
+message SimulatorError {
+    // Unique code of the error for automatic handling on client side
+    optional string code = 1;
+    // Unsupported capability for automatic handling on client side
+    optional SimulatorCapability unsupported_capability = 2;
+    // Human readable description of the error
+    optional string message = 3;
+}
+
 // Command from the connected client to the simulator
 message SimulatorCommand {
-    // Commands for each robot
+    // Control the robots
     repeated RobotCommand robot_commands = 1;
+    // Control the simulation
     optional SimulatorControl control = 2;
+    // Configure the simulation
     optional SimulatorConfig config = 3;
 }
 
@@ -226,5 +247,6 @@ message SimulatorCommand {
 message SimulatorResponse {
     // Feedback of the robots
     repeated RobotFeedback feedback = 1;
-    //TODO: inform team if a command was not executed properly
+    // List of errors, like using unsupported features
+    repeated SimulatorError errors = 2;
 }
