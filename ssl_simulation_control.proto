@@ -17,6 +17,8 @@ message SimulatorTeleportBall {
     // Teleport the ball safely to the target, for example by
     // moving robots out of the way in case of collision and set speed of robots close-by to zero
     optional bool teleport_safely = 7 [default = false];
+    // Adapt the angular ball velocity such that the ball is rolling
+    optional bool roll = 8 [default = false];
 }
 
 // Teleport a robot to some location and give it a velocity
