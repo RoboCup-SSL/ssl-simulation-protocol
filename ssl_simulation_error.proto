@@ -1,12 +1,5 @@
 syntax = "proto2";
 
-import "ssl_gc_common.proto";
-import "ssl_simulation_robot_control.proto";
-import "ssl_simulation_robot_feedback.proto";
-import "ssl_simulation_control.proto";
-import "ssl_simulation_config.proto";
-
-
 // Capabilities of the simulator implementation
 enum SimulatorCapability {
     // Unknown or not set (for compatibility)
@@ -27,22 +20,4 @@ message SimulatorError {
     optional SimulatorCapability unsupported_capability = 2;
     // Human readable description of the error
     optional string message = 3;
-}
-
-// Command from the connected client to the simulator
-message SimulatorCommand {
-    // Control the robots
-    repeated RobotCommand robot_commands = 1;
-    // Control the simulation
-    optional SimulatorControl control = 2;
-    // Configure the simulation
-    optional SimulatorConfig config = 3;
-}
-
-// Response of the simulator to the connected client
-message SimulatorResponse {
-    // Feedback of the robots
-    repeated RobotFeedback feedback = 1;
-    // List of errors, like using unsupported features
-    repeated SimulatorError errors = 2;
 }

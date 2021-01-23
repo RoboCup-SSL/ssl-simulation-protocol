@@ -1,6 +1,8 @@
 syntax = "proto2";
 
 import "ssl_gc_common.proto";
+import "ssl_simulation_config.proto";
+import "ssl_simulation_error.proto";
 
 // Teleport the ball to a new location and optionally set it to some velocity
 message TeleportBall {
@@ -49,4 +51,18 @@ message SimulatorControl {
     repeated TeleportRobot teleport_robot = 2;
     // Change the simulation speed
     optional float simulation_speed = 3;
+}
+
+// Command from the connected client to the simulator
+message SimulatorCommand {
+    // Control the simulation
+    optional SimulatorControl control = 1;
+    // Configure the simulation
+    optional SimulatorConfig config = 2;
+}
+
+// Response of the simulator to the connected client
+message SimulatorResponse {
+    // List of errors, like using unsupported features
+    repeated SimulatorError errors = 1;
 }

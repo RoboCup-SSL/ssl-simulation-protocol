@@ -1,11 +1,9 @@
 syntax = "proto2";
 
-import "ssl_gc_common.proto";
-
 // Full command for a single robot
 message RobotCommand {
     // Id of the robot
-    required RobotId id = 1;
+    required uint32 id = 1;
     // Movement command
     optional RobotMoveCommand move_command = 2;
     // Absolute (3 dimensional) kick speed [m/s]
@@ -58,4 +56,10 @@ message MoveGlobalVelocity {
     required float vel_y = 2;
     // Angular velocity counter-clockwise [rad/s]
     required float vel_angular = 3;
+}
+
+// Command from the connected client to the simulator
+message RobotControl {
+    // Control the robots
+    repeated RobotCommand robot_commands = 1;
 }

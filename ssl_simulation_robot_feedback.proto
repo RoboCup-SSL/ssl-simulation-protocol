@@ -1,6 +1,7 @@
 syntax = "proto2";
 
 import "ssl_gc_common.proto";
+import "ssl_simulation_error.proto";
 
 message RobotFeedbackMimir {
     optional float ball_pos_x = 1;
@@ -21,4 +22,12 @@ message RobotFeedback {
     optional bool dribbler_ball_contact = 2;
     // Custom robot feedback for specfic simulators
     optional RobotFeedbackCustom custom = 3;
+}
+
+// Response to RobotControl from the simulator to the connected client
+message RobotControlResponse {
+    // List of errors, like using unsupported features
+    repeated SimulatorError errors = 1;
+    // Feedback of the robots
+    repeated RobotFeedback feedback = 2;
 }
