@@ -63,7 +63,7 @@ message RobotSpecs {
     optional float radius = 2 [default = 0.09];
     // Robot height [m]
     optional float height = 3 [default = 0.15];
-    // Robot mass [g]
+    // Robot mass [kg]
     optional float mass = 4;
     // Max linear kick speed [m/s] (unset = unlimited)
     optional float max_linear_kick_speed = 7;
