@@ -100,12 +100,17 @@ message RealismConfigErForce {
     optional bool simulate_dribbling = 15;
 }
 
-// Wrapper for different types of realism configurations
-message RealismConfig {
+// Custom realism configs for specific simulators
+message RealismConfigCustom {
     oneof config {
         // Realism configuration for ER-Force simulator
         RealismConfigErForce erforce = 1;
     }
+}
+
+message RealismConfig {
+    // Custom config for specific simulators
+    optional RealismConfigCustom custom = 1;
 }
 
 // Change the simulator configuration
