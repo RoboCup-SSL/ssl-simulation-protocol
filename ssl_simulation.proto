@@ -2,16 +2,10 @@
 
 import "ssl_gc_common.proto";
 import "ssl_simulation_robot_control.proto";
+import "ssl_simulation_robot_feedback.proto";
 import "ssl_simulation_control.proto";
 import "ssl_simulation_config.proto";
 
-// Feedback from a robot
-message RobotFeedback {
-    // Id of the robot
-    required RobotId id = 1;
-    // Has the dribbler contact to the ball right now
-    optional bool dribbler_ball_contact = 2;
-}
 
 // Capabilities of the simulator implementation
 enum SimulatorCapability {

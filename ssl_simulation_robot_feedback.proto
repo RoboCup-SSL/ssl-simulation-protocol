@@ -1,0 +1,22 @@
+import "ssl_gc_common.proto";
+
+message RobotFeedbackMimir {
+    optional float ball_pos_x = 1;
+    optional float ball_pos_y = 2;
+}
+
+message RobotFeedbackCustom {
+    oneof feedback {
+        RobotFeedbackMimir mimir = 1;
+    }
+}
+
+// Feedback from a robot
+message RobotFeedback {
+    // Id of the robot
+    required RobotId id = 1;
+    // Has the dribbler contact to the ball right now
+    optional bool dribbler_ball_contact = 2;
+    // Custom robot feedback for specfic simulators
+    optional RobotFeedbackCustom custom = 3;
+}
