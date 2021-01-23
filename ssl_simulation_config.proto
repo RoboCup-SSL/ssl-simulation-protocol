@@ -116,4 +116,6 @@ message SimulatorConfig {
     repeated RobotSpecs robot_specs = 2;
     // Update realism configuration
     optional RealismConfig realism_config = 3;
+    // Change the vision publish port
+    optional uint32 vision_port = 4;
 }
