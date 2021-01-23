@@ -1,3 +1,5 @@
+syntax = "proto2";
+
 import "ssl_gc_common.proto";
 import "ssl_simulation_robot_control.proto";
 import "ssl_simulation_robot_feedback.proto";
