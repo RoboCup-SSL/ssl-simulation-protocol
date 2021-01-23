@@ -8,7 +8,15 @@ This protocol is still in draft mode and subject to changes
 ---
 
 Protobuf files for a common simulation protocol for the Small Size League for easier exchange of different
-simulator implementations.
+simulator implementations:
+
+* [ssl_simulation](./ssl_simulation.proto) - Main entry point of the protocol
+* [ssl_simulation_config](./ssl_simulation_config.proto) - Change the configuration of the simulator
+* [ssl_simulation_control](./ssl_simulation_control.proto) - Control the simulation itself
+* [ssl_simulation_robot_control](./ssl_simulation_robot_control.proto) - Control the robots
+* [ssl_simulation_robot_feedback](./ssl_simulation_robot_feedback.proto) - Receive robot feedback
+* [ssl_gc_common](./ssl_gc_common.proto) - Common types from game-controller (RobotId) 
+* [ssl_geometry](./ssl_geometry.proto) - Geometry from ssl-vision
 
 The protocol defines mostly optional fields. All unset variables should be interpreted as unmodified.
 A simulator may decide to not implement all features. Returning an error in case a field is set that is not
