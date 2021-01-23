@@ -79,7 +79,7 @@ message RobotSpecs {
 
 // Realism configuration for ER-Force simulator
 // TODO documentation
-message SimulatorRealismConfigErForce {
+message RealismConfigErForce {
     optional float stddev_ball_p = 1;
     optional float stddev_robot_p = 2;
     optional float stddev_robot_phi = 3;
@@ -99,10 +99,10 @@ message SimulatorRealismConfigErForce {
 }
 
 // Wrapper for different types of realism configurations
-message SimulatorRealismConfig {
+message RealismConfig {
     oneof config {
         // Realism configuration for ER-Force simulator
-        SimulatorRealismConfigErForce erforce = 1;
+        RealismConfigErForce erforce = 1;
     }
 }
 
@@ -113,5 +113,5 @@ message SimulatorConfig {
     // Update the robot specs
     repeated RobotSpecs robot_specs = 2;
     // Update realism configuration
-    optional SimulatorRealismConfig realism_config = 3;
+    optional RealismConfig realism_config = 3;
 }

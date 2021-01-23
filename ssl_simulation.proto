@@ -1,5 +1,3 @@
-// Note: All unset variables are unmodified when receiving the command.
-
 import "ssl_gc_common.proto";
 import "ssl_simulation_robot_control.proto";
 import "ssl_simulation_robot_feedback.proto";
@@ -11,11 +9,11 @@ import "ssl_simulation_config.proto";
 enum SimulatorCapability {
     // Unknown or not set (for compatibility)
     SIMULATOR_CAPABILITY_UNKNOWN = 1;
-    // Supports moving robots with wheel velocity
+    // Moving robots with wheel velocity
     SIMULATOR_CAPABILITY_MOVE_WHEEL_VELOCITY = 2;
-    // Supports moving robots with local velocity
+    // Moving robots with local velocity
     SIMULATOR_CAPABILITY_MOVE_LOCAL_VELOCITY = 3;
-    // Supports moving robots with global velocity
+    // Moving robots with global velocity
     SIMULATOR_CAPABILITY_MOVE_GLOBAL_VELOCITY = 4;
 }
 

@@ -1,7 +1,7 @@
 import "ssl_gc_common.proto";
 
 // Teleport the ball to a new location and optionally set it to some velocity
-message SimulatorTeleportBall {
+message TeleportBall {
     // x-coordinate [m]
     optional float x = 1;
     // y-coordinate [m]
@@ -22,7 +22,7 @@ message SimulatorTeleportBall {
 }
 
 // Teleport a robot to some location and give it a velocity
-message SimulatorTeleportRobot {
+message TeleportRobot {
     // Robot id to teleport
     required RobotId id = 1;
     // x-coordinate [m]
@@ -42,9 +42,9 @@ message SimulatorTeleportRobot {
 // Control the simulation
 message SimulatorControl {
     // Teleport the ball
-    optional SimulatorTeleportBall teleport_ball = 1;
+    optional TeleportBall teleport_ball = 1;
     // Teleport robots
-    repeated SimulatorTeleportRobot teleport_robot = 2;
+    repeated TeleportRobot teleport_robot = 2;
     // Change the simulation speed
     optional float simulation_speed = 3;
 }
