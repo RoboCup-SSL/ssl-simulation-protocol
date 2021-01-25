@@ -42,6 +42,16 @@ When a simulator is used in a tournament, it should only allow one connection pe
 Simulation control and configuration should be disabled in the simulator or for example restricted to localhost
 so that teams can not (accidentally) connect to the simulation control.
 
+## Synchronous communication
+
+During development and for automated tests it might be useful to have a synchronous communication with the team software.
+Additionally, a multicast protocol might cause issues in these scenarios.
+For this, an independent interface can be offered by the simulator. The request and response messages are defined
+in [ssl_simulation_synchronous.proto](./ssl_simulation_synchronous.proto).
+A bidirectional TCP connection is used to make sure that messages arrive in order and that each request is followed by a response message.
+Each message is preceded by an uvarint containing the message size in bytes, 
+see https://cwiki.apache.org/confluence/display/GEODE/Delimiting+Protobuf+Messages for details.
+
 ## Design decisions
 
 ### Multiple ports

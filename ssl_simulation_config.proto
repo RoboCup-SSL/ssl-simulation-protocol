@@ -1,7 +1,7 @@
 syntax = "proto2";
 
 import "ssl_gc_common.proto";
-import "ssl_geometry.proto";
+import "ssl_vision_geometry.proto";
 
 // Movement limits for a robot
 message RobotLimits {
