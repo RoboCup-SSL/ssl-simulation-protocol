@@ -42,16 +42,11 @@ message RobotSpecErForce {
     optional float dribbler_height = 2;
 }
 
-// Custom robot specs for Mimir simulator
-message RobotSpecMimir {
-    // TODO wheel friction
-}
-
 // Custom robot specs that a specific to implementations
 message RobotSpecsCustom {
     oneof spec {
+        // Robot specs for ER-Force simulator
         RobotSpecErForce erforce = 1;
-        RobotSpecMimir mimir = 2;
     }
 }
 

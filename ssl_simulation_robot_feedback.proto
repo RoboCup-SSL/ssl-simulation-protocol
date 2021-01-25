@@ -3,15 +3,11 @@ syntax = "proto2";
 import "ssl_gc_common.proto";
 import "ssl_simulation_error.proto";
 
-message RobotFeedbackMimir {
-    optional float ball_pos_x = 1;
-    optional float ball_pos_y = 2;
-}
-
+// Custom robot feedback for specific simulators
 message RobotFeedbackCustom {
-    oneof feedback {
-        RobotFeedbackMimir mimir = 1;
-    }
+    // Place holder for future custom robot feedback
+    // This could be the ball location, as seen by the robot
+    // oneof feedback {}
 }
 
 // Feedback from a robot
