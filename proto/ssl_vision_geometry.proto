@@ -1,4 +1,6 @@
 syntax = "proto2";
+option go_package = "github.com/RoboCup-SSL/ssl-simulation-protocol/pkg/sim";
+
 // A 2D float vector.
 message Vector2f {
   required float x = 1;
