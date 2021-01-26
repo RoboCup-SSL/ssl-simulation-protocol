@@ -18,7 +18,7 @@ It consists of the following files:
 * [ssl_simulation_config](./ssl_simulation_config.proto) - Change the configuration of the simulator
 * [ssl_simulation_error](./ssl_simulation_error.proto) - Error messages for responses
 * [ssl_gc_common](./ssl_gc_common.proto) - Common types from game-controller (RobotId) 
-* [ssl_geometry](./ssl_geometry.proto) - Geometry from ssl-vision
+* [ssl_geometry](./ssl_vision_geometry.proto) - Geometry from ssl-vision
 
 The protocol defines mostly optional fields. All unset variables should be interpreted as unmodified.
 A simulator may decide to not implement all features. Returning an error in case a field is set that is not
@@ -52,6 +52,11 @@ in [ssl_simulation_synchronous.proto](./ssl_simulation_synchronous.proto).
 A bidirectional TCP connection is used to make sure that messages arrive in order and that each request is followed by a response message.
 Each message is preceded by an uvarint containing the message size in bytes, 
 see https://cwiki.apache.org/confluence/display/GEODE/Delimiting+Protobuf+Messages for details.
+
+There are currently also other implementation ideas:
+1. Providing C-Interfaces
+1. Using gRPC, esp. for configuration
+
 
 ## Design decisions
 
