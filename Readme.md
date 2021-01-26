@@ -38,9 +38,10 @@ All connections use bidirectional UDP communication.
 
 ## Tournament Mode
 
-When a simulator is used in a tournament, it should only allow one connection per port.
+When a simulator is used in a tournament, it should only allow UDP packets from one IP per team.
 Simulation control and configuration should be disabled in the simulator or for example restricted to localhost
-so that teams can not (accidentally) connect to the simulation control.
+or also to only one IP, so that teams can not (accidentally) connect to the simulation control, but
+an autoRef or similar can.
 
 ## Synchronous communication
 
