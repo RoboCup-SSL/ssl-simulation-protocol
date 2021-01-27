@@ -30,9 +30,26 @@ errors in their software.
 
 There are three ports that a simulator should offer:
 
-1. Simulation Control (10300): Accepts `SimulatorCommand` messages and returns `SimulatorResponse` messages.
-1. Robot Control Blue (10301): Accepts `RobotControl` messages and returns `RobotControlResponse` messages, only for blue team
-1. Robot Control Yellow (10302): Accepts `RobotControl` messages and returns `RobotControlResponse` messages, only for yellow team
+### Simulation Control
+Control and configure the simulation.
+
+* Accepts `SimulatorCommand` messages ([ssl_simulation_control](./proto/ssl_simulation_control.proto))
+* Returns `SimulatorResponse` messages ([ssl_simulation_control](./proto/ssl_simulation_control.proto))
+* Default port: 10300 UDP
+
+### Robot Control Blue
+Control the blue team.
+
+* Accepts `RobotControl` messages ([ssl_simulation_robot_control](./proto/ssl_simulation_robot_control.proto))
+* Returns `RobotControlResponse` messages ([ssl_simulation_robot_feedback](./proto/ssl_simulation_robot_feedback.proto))
+* Default port: 10301 UDP
+
+### Robot Control Yellow
+Control the yellow team.
+
+* Accepts `RobotControl` messages ([ssl_simulation_robot_control](./proto/ssl_simulation_robot_control.proto))
+* Returns `RobotControlResponse` messages ([ssl_simulation_robot_feedback](./proto/ssl_simulation_robot_feedback.proto))
+* Default port: 10302 UDP
 
 All connections use bidirectional UDP communication.
 
@@ -47,16 +64,15 @@ an autoRef or similar can.
 
 During development and for automated tests it might be useful to have a synchronous communication with the team software.
 Additionally, a multicast protocol might cause issues in these scenarios.
-For this, an independent interface can be offered by the simulator. The request and response messages are defined
-in [ssl_simulation_synchronous.proto](./proto/ssl_simulation_synchronous.proto).
-A bidirectional TCP connection is used to make sure that messages arrive in order and that each request is followed by a response message.
-Each message is preceded by an uvarint containing the message size in bytes, 
-see https://cwiki.apache.org/confluence/display/GEODE/Delimiting+Protobuf+Messages for details.
+There are also things like authentication for a tournament mode to be considered.
 
-There are currently also other implementation ideas:
-1. Providing C-Interfaces
+For that, an additional communication interface is planned. There are multiple ideas:
+1. Use a bidirectional TCP connection, like the game-controller provides (messages a drafted in [ssl_simulation_synchronous.proto](./proto/ssl_simulation_synchronous.proto))
+1. Providing C-Interfaces to avoid network communication completely
 1. Using gRPC, esp. for configuration
 
+In any case, the protobuf messages would still be used, but a layer would be added on top.
+These different ideas still need more evaluation. Feedback and opinions can be addressed to the SSL TC.
 
 ## Design decisions
 
