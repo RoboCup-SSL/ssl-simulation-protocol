@@ -52,11 +52,11 @@ message MoveLocalVelocity {
 // Move robot with global velocity
 message MoveGlobalVelocity {
     // Velocity on x-axis of the field [m/s]
-    required float vel_x = 1;
+    required float x = 1;
     // Velocity on y-axis of the field [m/s]
-    required float vel_y = 2;
+    required float y = 2;
     // Angular velocity counter-clockwise [rad/s]
-    required float vel_angular = 3;
+    required float angular = 3;
 }
 
 // Command from the connected client to the simulator
