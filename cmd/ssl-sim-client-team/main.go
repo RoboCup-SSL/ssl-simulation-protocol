@@ -37,11 +37,38 @@ func main() {
 		robotControl := sim.RobotControl{}
 
 		id := uint32(0)
-		kickSpeed := float32(5)
+		kickSpeed := float32(4)
+		kickAngle := float32(0)
+		dribbleSpeed := float32(0)
+		//forward := float32(0)
+		//left := float32(0)
+		//angular := float32(0)
+		//moveCommand := &sim.RobotMoveCommand_LocalVelocity{
+		//    LocalVelocity: &sim.MoveLocalVelocity{
+		//        Forward: &forward,
+		//        Left:    &left,
+		//        Angular: &angular,
+		//    },
+		//}
+		globalVelX := float32(0.0)
+		globalVelY := float32(0.0)
+		globalVelAngular := float32(0.0)
+		moveCommand := &sim.RobotMoveCommand_GlobalVelocity{
+			GlobalVelocity: &sim.MoveGlobalVelocity{
+				X:       &globalVelX,
+				Y:       &globalVelY,
+				Angular: &globalVelAngular,
+			},
+		}
 		robotControl.RobotCommands = []*sim.RobotCommand{
 			{
-				Id:        &id,
-				KickSpeed: &kickSpeed,
+				Id: &id,
+				MoveCommand: &sim.RobotMoveCommand{
+					Command: moveCommand,
+				},
+				KickSpeed:     &kickSpeed,
+				KickAngle:     &kickAngle,
+				DribblerSpeed: &dribbleSpeed,
 			},
 		}
 
