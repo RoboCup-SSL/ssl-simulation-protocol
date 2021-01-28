@@ -42,6 +42,10 @@ message TeleportRobot {
     optional float v_y = 6 [default = 0];
     // Angular velocity [rad/s]
     optional float v_angular = 7 [default = 0];
+    // Robot should be present on the field?
+    // true -> robot will be added, if it does not exist yet
+    // false -> robot will be removed, if it is present
+    optional bool present = 8;
 }
 
 // Control the simulation
