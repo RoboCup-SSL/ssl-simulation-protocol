@@ -2,6 +2,7 @@ syntax = "proto2";
 option go_package = "github.com/RoboCup-SSL/ssl-simulation-protocol/pkg/sim";
 
 // Custom robot specs for ER-Force simulator
+// See ./Robot.jpg and ./Robot.pdf for details on how these parameters are applied to the robot model.
 message RobotSpecErForce {
     // The distance [m] from the robot center to the ball, when the ball is as close as possible to the robot.
     // The ball may be a little bit inside the robot when looking from top, due to the dimensions of the dribbler.
