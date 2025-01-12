@@ -3,7 +3,8 @@ package main
 import (
 	"flag"
 	"github.com/RoboCup-SSL/ssl-simulation-protocol/pkg/sim"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/encoding/prototext"
+	"google.golang.org/protobuf/proto"
 	"log"
 	"net"
 	"time"
@@ -79,7 +80,7 @@ func main() {
 			},
 		}
 
-		log.Print("Sending: ", proto.MarshalTextString(&robotControl))
+		log.Print("Sending: ", prototext.Format(&robotControl))
 		bSend, _ := proto.Marshal(&robotControl)
 		if _, err := conn.Write(bSend); err != nil {
 			log.Print("Failed to write: ", err)
@@ -113,6 +114,6 @@ func receive(conn *net.UDPConn) {
 			continue
 		}
 
-		log.Printf("Received %d bytes: %s", n, proto.MarshalTextString(&robotControlResponse))
+		log.Printf("Received %d bytes: %s", n, prototext.Format(&robotControlResponse))
 	}
 }

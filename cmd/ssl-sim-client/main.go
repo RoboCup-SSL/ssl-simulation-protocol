@@ -3,7 +3,8 @@ package main
 import (
 	"flag"
 	"github.com/RoboCup-SSL/ssl-simulation-protocol/pkg/sim"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/encoding/prototext"
+	"google.golang.org/protobuf/proto"
 	"log"
 	"math"
 	"net"
@@ -76,7 +77,7 @@ func main() {
 
 		simCommand.Control.TeleportRobot = append(simCommand.Control.TeleportRobot, &teleBot)
 
-		log.Print("Sending: ", proto.MarshalTextString(&simCommand))
+		log.Print("Sending: ", prototext.Format(&simCommand))
 		bSend, err := proto.Marshal(&simCommand)
 		if _, err := conn.Write(bSend); err != nil {
 			log.Print("Failed to write: ", err)
@@ -100,7 +101,7 @@ func main() {
 			continue
 		}
 
-		log.Print("Received: ", proto.MarshalTextString(&simResponse))
+		log.Print("Received: ", prototext.Format(&simResponse))
 
 		break
 	}
